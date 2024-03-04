@@ -85,6 +85,24 @@ class Eliashberg(object):
             #return summa/(2*np.pi*self.N_ef*self.N_qs)
             return summa/(2*np.pi*self.N_ef*self.N)
 
+    def Lambda_q_new(self,i):
+        """
+        Calculates the Lambda(q) functions
+        ---input---
+        i: index of the frequencies and widths of the lorentzian fitting of the plasmon
+        ---output---
+        Lamb_q: Lambda(q)
+        """
+        if (self.Omega[i]!=0):
+            Lamb_q=(1/(np.pi*self.N_ef)) * (self.Ratio[i])/(self.Omega[i]) #fix from omega to omega²
+        else:
+            print("error, Omega<0")
+            exit()
+        #     Lamb_q=0
+        #     self.indice_zeros += 1
+        #     print("Indice_zeros=",self.indice_zeros)
+        return Lamb_q
+
 # ----------
 # Funciones
 # ----------
