@@ -34,6 +34,34 @@ class Eliashberg(object):
     def __init__(self, arg):
         super(NombredeClase, self).__init__()
         self.arg = arg
+        """
+        Set parameters into object and transformation units.
+        """
+        units = create_units('2014')   #new way of defining units
+        self.from_cm1_to_Hartree = units.invcm/units.Hartree #0.0000045563352812122295
+        self.from_GHz_to_Hartree = self.from_cm1_to_Hartree /29.9792458 # from GHz to Hartree
+        self.from_Ry_to_Hartree = units.Ry/units.Hartree #0.5 # from Ry to Hartree
+        """
+        cm^-1 to Hartree: Hartree = cm^-1 / 219474.6
+        Hartree to cm^-1: cm^-1 = Hartree * 219474.6
+
+        GHz to Hartree: Hartree = GHz / 6.5796839 × 10^9
+        Hartree to GHz: GHz = Hartree * 6.5796839 × 10^9
+
+        eV to Hartree: Hartree = eV*0,0367493
+        """
+        self.from_cm1_to_eV = units.invcm/units.eV #0.00012398425731484318
+        self.from_GHz_to_eV = 0.000004135669661004052
+        self.qx = qx
+        self.qy = qy
+        self.Omega = Omega
+        self.Gamma =  Gamma
+        self.Ratio = Ratio
+
+        self.indice_zeros = 0
+        self.N_qs = ((np.max(qx)*np.max(qy))+np.max([np.max(qx),np.max(qy)]))/(2*50)
+        self.N = 50*50 #test for 3 and 5 (maybe *4 for the 4 cuadrants and *2 for the HPII AND HPI :: and  the 1DP has 3 plasmons)
+        print("factor N_qs=",self.N_qs,"::",self.N,"::",len(Omega))        
 
     def a2F(self,x,method = 0):
         """
