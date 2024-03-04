@@ -35,7 +35,7 @@ class Eliashberg(object):
         super(NombredeClase, self).__init__()
         self.arg = arg
 
-    def a2F_new(self,x,method = 0):
+    def a2F(self,x,method = 0):
         """
         Calculates the Eliashberg spectral functions
         ---input---
