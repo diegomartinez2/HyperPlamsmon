@@ -403,10 +403,10 @@ def main(args):
         qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="{}_c3".format(file_HP),flag_1DP=False)
     elif args[1]=="HPI":
         file_HP = "HPI"
-        qx,qy,Omega,Gamma,Ratio = Excel_data(filename="{}_c2".format(file_HP))
+        qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="{}_c2".format(file_HP))
     elif args[1]=="HPII":
         file_HP = "HPII"
-        qx,qy,Omega,Gamma,Ratio = Excel_data(filename="{}_c2".format(file_HP))
+        qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="{}_c2".format(file_HP))
     else:
         print("Arguments are 1DP, HPI or HPII:",args[1])
         exit()
