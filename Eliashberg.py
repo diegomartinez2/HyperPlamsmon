@@ -213,6 +213,67 @@ class Eliashberg(object):
         print("lambda(w) always growing?=",np.all(diff_lambda_w > 0)) # this test fails!!!
         self.plot_lambda(self.lambda_w_lista,self.w_0)
         return Lambda_1
+
+    def T_c(self,mu_par,lambda_t):
+        """
+        Allen-Dynes formula (Advanced McMillan's equation and its application for the analysis of highly-compressed superconductors)
+        Tc=W_log/1.2*exp(-1.04*(1+self.lambda_2)/(self.lambda_2-mu_*(1+0.62*self.lambda_2)))
+        Note this is an approximation formula and is not accurate for some superconductors
+        formula from DOI 10.1007/s10948-017-4295-y
+        """
+        AllenDynes = True
+        out2=-1.04*(1+lambda_t)/(lambda_t-mu_par*(1+0.62*lambda_t))
+        if (AllenDynes):
+            print ("f1,f2=",self.f_1(mu_par,lambda_t),self.f_2(mu_par,lambda_t))
+            out=self.f_1(mu_par,lambda_t)*self.f_2(mu_par,lambda_t)*self.w_log(lambda_t)/1.2 * np.exp(out2)
+        else:
+            out=self.w_log(lambda_t)/1.2 * np.exp(out2)
+
+        return out/8.617333262e-5 #Boltzman constant in eV/K
+
+    def w_log(self,lambda_t):
+        """
+        w_log calculated from Eliashberg
+        """
+        #eV_to_K=11604
+        #eV_to_K = 11604.5250061657
+
+        #mask = self.w >=  0
+        #mask = self.w >  0
+        w = self.w#[mask]#*eV_to_K
+        print("max(w)=",max(w))
+        w_log = np.exp(
+            (2.0/lambda_t)*
+            #integrate.simpson(
+            #(np.divide(self.a2F_new(self.w), self.w)*np.log(self.w)),self.w))
+            np.trapz((np.divide(self.a2F_new(w), w)*np.log(w)),w)
+            )
+        return w_log
+
+    def w_2(self,lambda_t):
+        #eV_to_K=11604
+        w = self.w#*eV_to_K
+        w_2 = np.sqrt(
+            (2.0/lambda_t)*
+            #integrate.simpson(
+            np.trapz((self.a2F_new(w)*w),w)
+            )
+        return w_2
+
+    def f_1(self,mu_par,lambda_t):
+        LAMBDA_temp = 2.46*(1+3.8*mu_par)
+        return np.power(1+np.power(lambda_t/LAMBDA_temp,3/2),1/3)
+
+    def f_2(self,mu_par,lambda_t):
+        LAMBDA_temp =1.82*(1+6.3*mu_par)*(self.w_2(lambda_t)/self.w_log(lambda_t))
+        print("mu_par=",mu_par)#OK
+        print ("LAMBDA_temp=",LAMBDA_temp) #ERROR
+        print ("w_2(lambda)=",self.w_2(lambda_t)) #ERROR
+        print ("w_log(lambda)=",self.w_log(lambda_t))
+        print ("return f2=",1 + (( self.w_2(lambda_t)/self.w_log(lambda_t) - 1) * lambda_t**2)/(
+        (lambda_t**2) + (LAMBDA_temp**2)))
+        return 1 + (( self.w_2(lambda_t)/self.w_log(lambda_t) - 1) * lambda_t**2)/(
+        (lambda_t**2) + (LAMBDA_temp**2))
 # ----------
 # Funciones
 # ----------
