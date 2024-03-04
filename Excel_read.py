@@ -27,6 +27,7 @@
 import os
 import glob
 import xlrd
+import numpy as np
 import Eliashberg
 # -------
 # Clases

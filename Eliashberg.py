@@ -28,7 +28,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import integrate
 import scipy as scipy
-
+from ase.units import create_units
 import os.path
 import os
 
@@ -37,10 +37,13 @@ import Excel_read
 # Clases
 # -------
 class Eliashberg(object):
-    """docstring for NombredeClase."""
+    """docstring for Eliashberg.
+    This object calculates the Lambda from two methods:
+    From the Eliashberg function amd fron the lambda at the q points.
+    """
 
     def __init__(self, qx,qy,Omega,Gamma,Ratio):    ###, arg):
-        super(NombredeClase, self).__init__()
+        super(Eliashberg, self).__init__()
         #self.arg = arg
         """
         Set parameters into object and transformation units.
@@ -97,7 +100,7 @@ class Eliashberg(object):
                     simmetry_factor =  1 #4
                 elif self.qx[i] == self.qy[i]:
                     simmetry_factor =  1 #4
-                summa += self.Lambda_q_new(i)*self.Omega[i] * self.gaussian(x,self.Omega[i],gauss_width) * simmetry_factor
+                summa += self.Lambda_q(i)*self.Omega[i] * self.gaussian(x,self.Omega[i],gauss_width) * simmetry_factor
             #return summa/(2*(len(self.Omega)))
             return summa/(2*self.N)
         else:
@@ -179,8 +182,8 @@ class Eliashberg(object):
             elif self.qx[i] == self.qy[i]:
                 symmetry_factor =  1 #4
 
-            summa1 += self.Lambda_q_new(i)*symmetry_factor
-            self.lambda_q_lista = np.append(self.lambda_q_lista, self.Lambda_q_new(i)*symmetry_factor)
+            summa1 += self.Lambda_q(i)*symmetry_factor
+            self.lambda_q_lista = np.append(self.lambda_q_lista, self.Lambda_q(i)*symmetry_factor)
 
         #Lambda_1=summa1/(len(center)-self.indice_zeros)
         Lambda_1=summa1/self.N
@@ -192,9 +195,9 @@ class Eliashberg(object):
         # w = Frequencies[Frequencies != 0]
         # mask = w >  0
         # self.w = w[mask]
-        res = np.absolute(self.a2F_new(self.w))
+        res = np.absolute(self.a2F(self.w))
         a2F_x = np.absolute(np.divide(res, self.w))
-        #res = np.absolute(self.a2F_new(w))
+        #res = np.absolute(self.a2F(w))
         #a2F_x = np.absolute(np.divide(res, w))
         #self.lambda_2 = 2*integrate.simpson(a2F_x,w)
         self.lambda_2 = 2*np.trapz(a2F_x, self.w)
@@ -211,8 +214,8 @@ class Eliashberg(object):
         print("w_0 always growing?=",np.all(diff_w_0 > 0)) # this test is OK
         for i in range(1,len(self.w_0)): #Frequencies[Frequencies != 0]:
             w_1 = self.w_0[:i]
-            #func_w = np.divide(self.a2F_new(w_1), w_1)
-            func_w = np.absolute(self.a2F_new(w_1)/w_1)
+            #func_w = np.divide(self.a2F(w_1), w_1)
+            func_w = np.absolute(self.a2F(w_1)/w_1)
             #partial_value=2*integrate.simpson(func_w,w_1)
             partial_value = 2* np.trapz(func_w,w_1)
             self.lambda_w_lista[i] = partial_value #test to see the evolution of Lambda
@@ -251,8 +254,8 @@ class Eliashberg(object):
         w_log = np.exp(
             (2.0/lambda_t)*
             #integrate.simpson(
-            #(np.divide(self.a2F_new(self.w), self.w)*np.log(self.w)),self.w))
-            np.trapz((np.divide(self.a2F_new(w), w)*np.log(w)),w)
+            #(np.divide(self.a2F(self.w), self.w)*np.log(self.w)),self.w))
+            np.trapz((np.divide(self.a2F(w), w)*np.log(w)),w)
             )
         return w_log
 
@@ -262,7 +265,7 @@ class Eliashberg(object):
         w_2 = np.sqrt(
             (2.0/lambda_t)*
             #integrate.simpson(
-            np.trapz((self.a2F_new(w)*w),w)
+            np.trapz((self.a2F(w)*w),w)
             )
         return w_2
 
@@ -280,6 +283,51 @@ class Eliashberg(object):
         (lambda_t**2) + (LAMBDA_temp**2)))
         return 1 + (( self.w_2(lambda_t)/self.w_log(lambda_t) - 1) * lambda_t**2)/(
         (lambda_t**2) + (LAMBDA_temp**2))
+
+
+    def gaussian(self,x, center,gauss_width):
+        """
+        Gaussian distribution
+        ---input---
+        x: x position of the gaussian graph, in this case the frequency
+        center: center of the gaussian distribution, in this case the frequency of the plasmon Lorenztian approximation
+        gauss_width: width of the gaussian distribution, in this case the witdh of the plasmon lorentzian aproximation
+        ---output---
+        g: gaussian value in 'x'
+        """
+        mu = center #self.pars[:1] #center
+        sigma = gauss_width #self.pars[:,2] #width
+        #d = 1/(2*np.sqrt(2*np.pi)*sigma)
+        d = 1/(sigma*np.sqrt(2*np.pi))
+        g = d*np.exp(-(x-mu)**2 / ( 2.0 * sigma**2 )  )
+        #exp(-(w_aux-w(j,l))**2.0d0/(2.0d0*broad**2.0d0))/ (broad*sqrt(twopi)) #copy from qe-5.1.0_elph
+        return g
+
+    def test_gaussian(self,w,w_q,N_q):
+        """
+        Test for the gaussian, the result must be the DOS.
+        ---input---
+        w: frequencies to test
+        w_q: frequencies of the plasmon grid
+        N_q: number of terms in w_q
+        ---output---
+        test_dos:
+        """
+        width = 5#*self.from_cm1_to_eV #self.from_cm1_to_Hartree*2 #1,5,10 cm-1
+        test_dos = 1/N_q # is this equal to len(W_q)?
+        for i in range(len(w_q)): #q=6x6x6 (???) for the test data. q=50x50=250 for the plasmon
+            test_dos += self.gaussian(w,w_q[i],width) #This must be the DOS, integrate this to check the gaussian.
+        print("Test of the gaussian: this must be the integral of the DOS=",test_dos)
+        return test_dos
+
+    def plot_lambda(self,x,w):
+        plt.figure(figsize=(10,6))
+        #plt.figure().set_figwidth(15)
+        #plt.figure().set_figheight(2)
+        plt.plot(x,w)
+        plt.tight_layout()
+        plt.show()
+        pass
 # ----------
 # Funciones
 # ----------
@@ -322,7 +370,7 @@ def w_log(w,lambda_t,a2F):
         a2F_w = a2F/w #np.divide(a2F, w)
         log_w = np.log(w)
         w_log = np.exp((2.0/lambda_t)*np.trapz(a2F_w*log_w,w))
-            #integrate.simpson((np.divide(self.a2F_new(self.w), self.w)*np.log(self.w)),self.w))
+            #integrate.simpson((np.divide(self.a2F(self.w), self.w)*np.log(self.w)),self.w))
             #np.trapz(a2F_w*np.log(w)),w)
         return w_log
 
@@ -362,7 +410,7 @@ def main(args):
     else:
         print("Arguments are 1DP, HPI or HPII:",args[1])
         exit()
-    superconductor = Eliashberg.Eliashberg(qx,qy,Omega,Gamma,Ratio)
+    superconductor = Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
     print("Omega range:",np.min(superconductor.Omega-np.abs(np.max(superconductor.Gamma))),'::',np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))))
     frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000) #test
@@ -386,7 +434,7 @@ def main(args):
     plt.show()
     fig_lambda_q.savefig("{0}_Ajuste_d_{1}".format(args[1],"lambda_w"))
     a2F_lista = []
-    a2F_lista = superconductor.a2F_new(frequencies)
+    a2F_lista = superconductor.a2F(frequencies)
 
     fig_a2F = plt.figure(figsize=(10,6))
     ax = fig_a2F.add_subplot(1, 1, 1)
