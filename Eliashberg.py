@@ -103,6 +103,25 @@ class Eliashberg(object):
         #     print("Indice_zeros=",self.indice_zeros)
         return Lamb_q
 
+    def read_Ne(self,filename="out_DOS.dat"):
+        """
+        Read the number of particles under the Fermi level (???)
+        Set the numbre of elements.
+        """
+        self.energy, self.Ne = np.loadtxt(filename,usecols=(0,1), unpack=True)
+        numero_de_elementos = np.trapz(self.Ne[:(np.where(self.energy==0.0)[0][0])],dx=np.absolute(self.energy[0]-self.energy[-1])/len(self.energy)) # maybe this is better??
+        numero_de_elementos2 = integrate.simpson(self.Ne[:(np.where(self.energy==0.0)[0][0])],dx = np.absolute(self.energy[0]-self.energy[-1])/len(self.energy))
+        total_states = np.trapz(self.Ne,dx=np.absolute(self.energy[0]-self.energy[-1])/len(self.energy))
+        print("Número de elementos:",numero_de_elementos,"|total=",total_states)
+        print("Número de elementos2:",numero_de_elementos2,"|total=",total_states)
+        print("N(eF)=",self.Ne[(np.where(self.energy==0.0)[0][0])]) #states/spin/eV/unit cell
+
+        #------^--------
+        print ("Density of states at Fermi level per cell=",self.Ne[np.where(self.energy==0.0)])
+        print ("Number of elements (for the factor)=",numero_de_elementos)
+        self.N_ef = self.Ne[(np.where(self.energy==0.0)[0][0])] #1.8855775
+        pass
+
 # ----------
 # Funciones
 # ----------
