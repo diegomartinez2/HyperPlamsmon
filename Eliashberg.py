@@ -61,7 +61,7 @@ class Eliashberg(object):
         self.indice_zeros = 0
         self.N_qs = ((np.max(qx)*np.max(qy))+np.max([np.max(qx),np.max(qy)]))/(2*50)
         self.N = 50*50 #test for 3 and 5 (maybe *4 for the 4 cuadrants and *2 for the HPII AND HPI :: and  the 1DP has 3 plasmons)
-        print("factor N_qs=",self.N_qs,"::",self.N,"::",len(Omega))        
+        print("factor N_qs=",self.N_qs,"::",self.N,"::",len(Omega))
 
     def a2F(self,x,method = 0):
         """
@@ -150,6 +150,69 @@ class Eliashberg(object):
         self.N_ef = self.Ne[(np.where(self.energy==0.0)[0][0])] #1.8855775
         pass
 
+    def Lambda(self,Frequencies):
+        """
+        Calculates the Lambda by two methods, notice that it must calculate the integral
+        in a range that takes the Lorenztian obtained by the Plasmon_analysis object.
+        """
+        center = self.Omega
+        width = self.Gamma
+        #method 1 ----------------------------
+
+        summa1 = 0
+        self.lambda_q_lista = np.array([])
+        for i in range(len(center)):  #summa in q (6x6x6 or q_x*q_y)
+            symmetry_factor =  2 #8
+            if self.qx[i] ==  0:
+                symmetry_factor =  1 #4
+                if self.qy[i] ==  0:
+                    symmetry_factor =  0 #1 #test taking out the qx=qy=0
+            elif self.qy[i] ==  0:
+                symmetry_factor =  1 #4
+            elif self.qx[i] == self.qy[i]:
+                symmetry_factor =  1 #4
+
+            summa1 += self.Lambda_q_new(i)*symmetry_factor
+            self.lambda_q_lista = np.append(self.lambda_q_lista, self.Lambda_q_new(i)*symmetry_factor)
+
+        #Lambda_1=summa1/(len(center)-self.indice_zeros)
+        Lambda_1=summa1/self.N
+        #print("Test Lambda with lambda_q=",summa1/(len(center)),":test lambda_q[N]=",summa1/self.N,":lambda_q[N_qs]=",summa1/self.N_qs)
+        #method 2 -------------------------------
+        self.lambda_2=[]
+        mask = Frequencies >  0
+        self.w = Frequencies[mask]
+        # w = Frequencies[Frequencies != 0]
+        # mask = w >  0
+        # self.w = w[mask]
+        res = np.absolute(self.a2F_new(self.w))
+        a2F_x = np.absolute(np.divide(res, self.w))
+        #res = np.absolute(self.a2F_new(w))
+        #a2F_x = np.absolute(np.divide(res, w))
+        #self.lambda_2 = 2*integrate.simpson(a2F_x,w)
+        self.lambda_2 = 2*np.trapz(a2F_x, self.w)
+        print("plot a2F(w)")
+        self.plot_lambda(res,self.w)
+        print("plot Lambda(w)")
+        #self.lambda_w_lista = []
+        #-------removin negatives w's---
+        #mask = w >=  0
+        #mask = self.w >  0
+        self.w_0 = self.w #w[mask]
+        self.lambda_w_lista = np.zeros(len(self.w_0))
+        diff_w_0 = np.diff(self.w_0)
+        print("w_0 always growing?=",np.all(diff_w_0 > 0)) # this test is OK
+        for i in range(1,len(self.w_0)): #Frequencies[Frequencies != 0]:
+            w_1 = self.w_0[:i]
+            #func_w = np.divide(self.a2F_new(w_1), w_1)
+            func_w = np.absolute(self.a2F_new(w_1)/w_1)
+            #partial_value=2*integrate.simpson(func_w,w_1)
+            partial_value = 2* np.trapz(func_w,w_1)
+            self.lambda_w_lista[i] = partial_value #test to see the evolution of Lambda
+        diff_lambda_w = np.diff(self.lambda_w_lista)
+        print("lambda(w) always growing?=",np.all(diff_lambda_w > 0)) # this test fails!!!
+        self.plot_lambda(self.lambda_w_lista,self.w_0)
+        return Lambda_1
 # ----------
 # Funciones
 # ----------
