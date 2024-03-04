@@ -85,7 +85,7 @@ class Eliashberg(object):
             #return summa/(2*np.pi*self.N_ef*self.N_qs)
             return summa/(2*np.pi*self.N_ef*self.N)
 
-    def Lambda_q_new(self,i):
+    def Lambda_q(self,i):
         """
         Calculates the Lambda(q) functions
         ---input---
