@@ -111,7 +111,30 @@ def Excel_data_parser(data):
     return qx,qy,Omega,Gamma,Ratio
     pass
 
-
+def Excel_data(filename,flag_1DP = False):
+    """
+    Read the data for the plasmons in cuprate from the excel files.
+    If the file is for the 1DP...
+    """
+    out = Eliashberg.read_1_excel_file(filename=filename) #filenames=('1DP','HPI','HPII');filenames=('1DP_c','HPI_c','HPII'_c)
+    #qx,qy,Omega,Gamma,Ratio = Eliashberg.Excel_data_parser(out)
+    qx=out[:,0]
+    qy=out[:,1]
+    Omega=out[:,2]
+    Gamma=out[:,3]
+    Ratio=out[:,4]
+    if flag_1DP: #make true for "1DP" or "1DP_c"
+        qx=np.append(qx,out[:,0])
+        qy=np.append(qy,out[:,1])
+        Omega=np.append(Omega,out[:,5])
+        Gamma=np.append(Gamma,out[:,6])
+        Ratio=np.append(Ratio,out[:,7])
+        qx=np.append(qx,out[:,0])
+        qy=np.append(qy,out[:,1])
+        Omaga=np.append(Omega,out[:,8])
+        Gamma=np.append(Gamma,out[:,9])
+        Ratio=np.append(Ratio,out[:,10])
+    return qx,qy,Omega/1000,Gamma/1000,Ratio
 
 def main(args):
     return 0

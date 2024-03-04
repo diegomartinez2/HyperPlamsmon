@@ -347,6 +347,58 @@ def f_2(mu_par,w,lambda_t,a2F):
 
 
 def main(args):
+    if args[1]=="1DP":
+        file_HP = "1DP"
+        qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="{}_c3".format(file_HP),flag_1DP=False)
+    elif args[1]=="HPI":
+        file_HP = "HPI"
+        qx,qy,Omega,Gamma,Ratio = Excel_data(filename="{}_c2".format(file_HP))
+    elif args[1]=="HPII":
+        file_HP = "HPII"
+        qx,qy,Omega,Gamma,Ratio = Excel_data(filename="{}_c2".format(file_HP))
+    else:
+        print "Arguments are 1DP, HPI or HPII"
+        exit()
+    superconductor = Eliashberg.Eliashberg(qx,qy,Omega,Gamma,Ratio)
+    superconductor.read_Ne()
+    print("Omega range:",np.min(superconductor.Omega-np.abs(np.max(superconductor.Gamma))),'::',np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))))
+    frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000) #test
+    lambda_1 = superconductor.Lambda(frequencies)
+    print('Lambda_1[{}]='.format(file_HP),lambda_1,'[Lambda calculated from Lambda_q for {}]?'.format(file_HP)) # Lambda calculated from Lambda_q
+    print('Lambda_2[{}]='.format(file_HP),superconductor.lambda_2,'[Lambda calculated fron Eliashberg function for {}]?'.format(file_HP)) #Lambda calculated fron Eliashberg function
+    np.savetxt('salida_{}.txt'.format(file_HP),np.c_[superconductor.qx,superconductor.qy,np.full(len(superconductor.Omega), superconductor.N_ef),superconductor.Omega,superconductor.Gamma,superconductor.lambda_q_lista],header='#---q_x---q_y---N_ef[States/Spin/eV/Unit Cell]---Omega[eV]---Gamma[eV]---Lambda_q')
+#-----plot-start
+    fig_lambda_q = plt.figure(figsize=(10,6))
+    ax = fig_lambda_q.add_subplot(1, 1, 1)
+    ax.plot(superconductor.lambda_w_lista,superconductor.w_0)
+    ax.set_title('$\lambda$ vs. $\omega$')
+    ax.set_xlabel('$\lambda(\omega)$')
+    ax.set_ylabel('$\omega$')
+    #ax.set_xticks([0,len(superconductor.w)])
+    #ax.set_yticks([0,5001])
+    #ax.set_xticklabels(["0","$\pi$"])
+    #ax.set_xticklabels([superconductor.w[0],superconductor.w[-1]])
+    #ax.set_yticklabels(["0","1"])
+    plt.tight_layout()
+    plt.show()
+    fig_lambda_q.savefig("{0}_Ajuste_d_{1}".format(args[1],"lambda_w"))
+    a2F_lista = []
+    a2F_lista = superconductor.a2F_new(frequencies)
+
+    fig_a2F = plt.figure(figsize=(10,6))
+    ax = fig_a2F.add_subplot(1, 1, 1)
+    ax.plot(a2F_lista,frequencies)
+    ax.set_title('a2F vs. $\omega$')
+    ax.set_ylabel('$\omega$ (eV)')
+    ax.set_xlabel('a2F')
+
+    plt.plot ()
+    plt.tight_layout()
+    plt.show()
+    fig_a2F.savefig("{0}_Ajuste_d_{1}".format(args[1],"a2F"))
+#---plot-end
+    np.savetxt("Lambda_lista{}".format(file_HP),np.vstack((superconductor.w_0,superconductor.lambda_w_lista)).T)
+    np.savetxt("a2F_{}".format(file_HP),np.vstack((frequencies, a2F_lista)).T)
     return 0
 
 if __name__ == '__main__':

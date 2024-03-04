@@ -25,6 +25,7 @@
 # Importación de los módulos
 # ---------------------------
 import Excel_read
+import Eliashberg
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -50,14 +51,14 @@ def main(args):
     mask = Lambda > 0
     print(mask)
 
-    Tc = T_c(w[mask],0.1,Lambda[-1],a2F[mask])
+    Tc = Eliashberg.T_c(w[mask],0.1,Lambda[-1],a2F[mask])
     print("T_c=",Tc,"(K) con Lambda_total")
     Lambda = Lambda_1DP+Lambda_HPI+Lambda_HPII
 
     mask = Lambda > 0
     print(mask)
 
-    Tc = T_c(w[mask],0.1,Lambda[-1],a2F[mask])
+    Tc = Eliashberg.T_c(w[mask],0.1,Lambda[-1],a2F[mask])
     print("T_c=",Tc,"(K) sumando las Lambdas")
 
 
