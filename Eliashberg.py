@@ -39,7 +39,7 @@ import Excel_read
 class Eliashberg(object):
     """docstring for NombredeClase."""
 
-    def __init__(self, qx,qy,Omega,Gamma,Ratio) #, arg):
+    def __init__(self, qx,qy,Omega,Gamma,Ratio):    ###, arg):
         super(NombredeClase, self).__init__()
         #self.arg = arg
         """
@@ -347,6 +347,9 @@ def f_2(mu_par,w,lambda_t,a2F):
 
 
 def main(args):
+    if len(args)<2:
+        print("Arguments are 1DP, HPI or HPII:")
+        exit()
     if args[1]=="1DP":
         file_HP = "1DP"
         qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="{}_c3".format(file_HP),flag_1DP=False)
@@ -357,7 +360,7 @@ def main(args):
         file_HP = "HPII"
         qx,qy,Omega,Gamma,Ratio = Excel_data(filename="{}_c2".format(file_HP))
     else:
-        print "Arguments are 1DP, HPI or HPII"
+        print("Arguments are 1DP, HPI or HPII:",args[1])
         exit()
     superconductor = Eliashberg.Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
