@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  Eliashberg.py
+#  Excel_read.py
 #
 #  Copyright 2024 Diego Martinez Gutierrez <diego.martinez@ehu.eus>
 #
