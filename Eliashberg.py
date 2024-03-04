@@ -26,15 +26,20 @@
 # ---------------------------
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import integrate
+import scipy as scipy
+
+import os.path
+import os
 # -------
 # Clases
 # -------
 class Eliashberg(object):
     """docstring for NombredeClase."""
 
-    def __init__(self, arg):
+    def __init__(self, qx,qy,Omega,Gamma,Ratio) #, arg):
         super(NombredeClase, self).__init__()
-        self.arg = arg
+        #self.arg = arg
         """
         Set parameters into object and transformation units.
         """
@@ -91,7 +96,7 @@ class Eliashberg(object):
                 elif self.qx[i] == self.qy[i]:
                     simmetry_factor =  1 #4
                 summa += self.Lambda_q_new(i)*self.Omega[i] * self.gaussian(x,self.Omega[i],gauss_width) * simmetry_factor
-            #return summa/(2*(len(self.Omega)-self.indice_zeros))
+            #return summa/(2*(len(self.Omega)))
             return summa/(2*self.N)
         else:
             #---------method2------vvvv-
@@ -109,7 +114,6 @@ class Eliashberg(object):
                     simmetry_factor =  1 #4
 
                 summa += (self.Ratio[i]) * self.gaussian(x,self.Omega[i],gauss_width) * simmetry_factor
-            #return summa/(2*np.pi*self.N_ef*(len(self.Omega)-self.indice_zeros))
             #return summa/(2*np.pi*self.N_ef*len(self.Omega))
             #return summa/(2*np.pi*self.N_ef*self.N_qs)
             return summa/(2*np.pi*self.N_ef*self.N)
