@@ -24,6 +24,7 @@
 # ---------------------------
 # Importación de los módulos
 # ---------------------------
+import Eliashberg
 
 # -------
 # Clases
