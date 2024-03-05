@@ -40,6 +40,7 @@ class Eliashberg(object):
     """docstring for Eliashberg.
     This object calculates the Lambda from two methods:
     From the Eliashberg function amd fron the lambda at the q points.
+    For more info: DOI: 10.1103/PhysRevB.103.134305
     """
 
     def __init__(self, qx,qy,Omega,Gamma,Ratio):    ###, arg):
@@ -77,6 +78,7 @@ class Eliashberg(object):
     def a2F(self,x,method = 0):
         """
         Calculates the Eliashberg spectral functions
+        a2F(w)=1/(2*pi*N*Nq)Sum{(gamma_q/omega_q)*delta(omega-omega_q)}
         ---input---
         x: coordiate to calculate the Eliashberg function.
         method: Method to use in the calculation.
