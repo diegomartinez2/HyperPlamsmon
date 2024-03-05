@@ -78,7 +78,7 @@ class Eliashberg(object):
     def a2F(self,x,method = 0):
         """
         Calculates the Eliashberg spectral functions
-        a2F(w)=1/(2*pi*N*Nq)Sum{(gamma_q/omega_q)*delta(omega-omega_q)}
+        a2F(w)=1/(2*pi*N(E_F)*Nq)Sum{(gamma_q/omega_q)*delta(omega-omega_q)}
         ---input---
         x: coordiate to calculate the Eliashberg function.
         method: Method to use in the calculation.
@@ -128,6 +128,7 @@ class Eliashberg(object):
     def Lambda_q(self,i):
         """
         Calculates the Lambda(q) functions
+        Lambda_q=1/(pi*N(E_F))*gamma_q/omega_q²
         ---input---
         i: index of the frequencies and widths of the lorentzian fitting of the plasmon
         ---output---
@@ -145,7 +146,7 @@ class Eliashberg(object):
 
     def read_Ne(self,filename="out_DOS.dat"):
         """
-        Read the number of particles under the Fermi level (???)
+        Read the number of particles under the Fermi level (???) ->'N(E_F)
         Set the numbre of elements.
         """
         self.energy, self.Ne = np.loadtxt(filename,usecols=(0,1), unpack=True)
@@ -166,6 +167,8 @@ class Eliashberg(object):
         """
         Calculates the Lambda by two methods, notice that it must calculate the integral
         in a range that takes the Lorenztian obtained by the Plasmon_analysis object.
+        Lambda_1=1/N * Sum{Lambda_q}
+        Lambda_2=2*Int_0^Inf{a²F(w)/w dw}  <---DOI: 10.1103/PhysRevB.103.134305
         """
         center = self.Omega
         width = self.Gamma
