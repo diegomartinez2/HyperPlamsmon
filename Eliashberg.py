@@ -88,7 +88,7 @@ class Eliashberg(object):
 
         center = self.Omega[:] #*put units correctly...
         width = self.Gamma[:] #*put units the same as center
-        gauss_width = 5*self.from_cm1_to_eV#(units.invcm/units.Hartree) should be aprox. 5 cm-1 (1, 5 or 10)
+        gauss_width = 10*self.from_cm1_to_eV#(units.invcm/units.Hartree) should be aprox. 5 cm-1 (1, 5 or 10)
         if (method == 1):
             #---------method1-------vvvv---
             summa = 0
