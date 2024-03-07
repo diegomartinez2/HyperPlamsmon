@@ -13,7 +13,7 @@ assert len(datos1) == len(datos2) == len(datos3), "Los archivos deben tener la m
 datos_combinados = np.column_stack((datos1[:, 0], datos1[:, 1], datos2[:, 1], datos3[:, 1]))
 
 # Guardar el array combinado en un nuevo archivo
-np.savetxt('a2F_combinados.txt', datos_combinados, delimiter=' ')
+np.savetxt('a2F_combinados.txt', datos_combinados, delimiter=' ', header='#w(eV)-------------------a2F(w)[1DP]--------------a2F(w)[HPI]---------------a2F(w)[HPII]')
 
 #----repetimos-----------
 # Leer los datos de los tres archivos
@@ -28,4 +28,4 @@ assert len(datos1) == len(datos2) == len(datos3), "Los archivos deben tener la m
 datos_combinados = np.column_stack((datos1[:, 0], datos1[:, 1], datos2[:, 1], datos3[:, 1]))
 
 # Guardar el array combinado en un nuevo archivo
-np.savetxt('Lambda_combinados.txt', datos_combinados, delimiter=' ')
+np.savetxt('Lambda_combinados.txt', datos_combinados, delimiter=' ', header='#w(eV)-------------------Lambda(w)[1DP]-----------Lambda(w)[HPI]-----------Lambda(w)[HPII]')
