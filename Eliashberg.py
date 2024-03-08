@@ -416,6 +416,10 @@ def main(args):
     else:
         print("Arguments are 1DP, HPI or HPII:",args[1])
         exit()
+    if len(args)=3:
+        if args[2]=="fix":
+            fix_frequencies = True
+
     superconductor = Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
 
