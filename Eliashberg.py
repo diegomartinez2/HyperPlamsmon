@@ -425,9 +425,9 @@ def main(args):
 
     print("Omega range:",np.min(superconductor.Omega-np.abs(np.max(superconductor.Gamma))),'::',np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))))
     if fix_frequencies:
-        frequencies = np.linspace(0,0.5,10000) #test
+        frequencies = np.linspace(0,0.5,10000) #test, range of frequencies
     else:
-        frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000) #test
+        frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000)
 
     lambda_1 = superconductor.Lambda(frequencies)
     print('Lambda_1[{}]='.format(file_HP),lambda_1,'[Lambda calculated from Lambda_q for {}]?'.format(file_HP)) # Lambda calculated from Lambda_q
