@@ -400,6 +400,7 @@ def f_2(mu_par,w,lambda_t,a2F):
 
 
 def main(args):
+    fix_frequencies = False
     if len(args)<2:
         print("Arguments are 1DP, HPI or HPII:")
         exit()
@@ -417,11 +418,13 @@ def main(args):
         exit()
     superconductor = Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
+
     print("Omega range:",np.min(superconductor.Omega-np.abs(np.max(superconductor.Gamma))),'::',np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))))
-    if True:
-        frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000) #test
-    else:
+    if fix_frequencies:
         frequencies = np.linspace(0,0.5,10000) #test
+    else:
+        frequencies = np.linspace(0,np.max(superconductor.Omega+np.abs(np.max(superconductor.Gamma))),10000) #test
+
     lambda_1 = superconductor.Lambda(frequencies)
     print('Lambda_1[{}]='.format(file_HP),lambda_1,'[Lambda calculated from Lambda_q for {}]?'.format(file_HP)) # Lambda calculated from Lambda_q
     print('Lambda_2[{}]='.format(file_HP),superconductor.lambda_2,'[Lambda calculated fron Eliashberg function for {}]?'.format(file_HP)) #Lambda calculated fron Eliashberg function
