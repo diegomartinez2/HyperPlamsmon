@@ -377,7 +377,7 @@ def w_log(w,lambda_t,a2F):
         w_log = np.exp((2.0/lambda_t)*np.trapz(a2F_w*log_w,w))
             #integrate.simpson((np.divide(self.a2F(self.w), self.w)*np.log(self.w)),self.w))
             #np.trapz(a2F_w*np.log(w)),w)
-        print(w_log,"(eV)")
+        #print(w_log,"(eV)")
         return w_log
 
 def w_2(w,lambda_t,a2F):
@@ -421,6 +421,17 @@ def main(args):
         if args[2]=="fix":
             fix_frequencies = True
 
+    # if True:
+    #     for index_q in qy:
+    #         plt.errorbar(qx, Omega, yerr=Gamma, fmt='o', capsize=5, ecolor='red', markerfacecolor='blue')
+    #         # Etiquetas
+    #         plt.xlabel('qx')
+    #         plt.ylabel('Omega')
+    #         plt.title('Fitting')
+    #
+    #         plt.show()
+    #
+    # exit()
     superconductor = Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
 
