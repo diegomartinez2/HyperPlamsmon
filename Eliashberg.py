@@ -416,7 +416,7 @@ def main(args):
     else:
         print("Arguments are 1DP, HPI or HPII:",args[1])
         exit()
-    if len(args)=3:
+    if len(args)==3:
         if args[2]=="fix":
             fix_frequencies = True
 
