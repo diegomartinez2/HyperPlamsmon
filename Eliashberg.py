@@ -402,6 +402,7 @@ def f_2(mu_par,w,lambda_t,a2F):
 
 def main(args):
     fix_frequencies = False
+    plot_excel_data = False
     if len(args)<2:
         print("Arguments are 1DP, HPI or HPII:")
         exit()
@@ -421,17 +422,22 @@ def main(args):
         if args[2]=="fix":
             fix_frequencies = True
 
-    # if True:
-    #     for index_q in qy:
-    #         plt.errorbar(qx, Omega, yerr=Gamma, fmt='o', capsize=5, ecolor='red', markerfacecolor='blue')
-    #         # Etiquetas
-    #         plt.xlabel('qx')
-    #         plt.ylabel('Omega')
-    #         plt.title('Fitting')
-    #
-    #         plt.show()
-    #
-    # exit()
+    if plot_excel_data:
+        for index_q in range(0,901,50):
+            mask = qx == index_q
+            print("mask=",mask)
+            plt.errorbar(qy[mask], Omega[mask], yerr=Gamma[mask], fmt='o', capsize=5, ecolor='red', markerfacecolor='blue')
+            # Etiquetas
+            plt.xlabel('qx')
+            plt.ylabel('Omega')
+            plt.title('Fitting')
+            # Establecer el rango de los ejes
+            plt.xlim(0, 1400) # Rango para el eje x
+            plt.ylim(0, 0.5) # Rango para el eje y
+            plt.savefig("Figura_Slava_fitting_{0}_{1}".format(index_q,file_HP))
+            plt.show()
+
+        exit()
     superconductor = Eliashberg(qx,qy,Omega,Gamma,Ratio)
     superconductor.read_Ne()
 
