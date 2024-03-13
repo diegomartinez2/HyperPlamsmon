@@ -44,16 +44,16 @@ def plot_excel_data(qx,qy,Omega,Gamma,file_HP):
 
     exit()
 
-def plot_plasmon(data,mask_value=50, diagonal = True, index = 0):
+def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 0, plot_error = False):
     print ("Leyendo datos")
 
     for index in range(0,51):
-        plasmon = Plasmon_analysis(index,"A7_EPS.dat")
+        plasmon = Plasmon.Plasmon_analysis(index,"A7_EPS.dat")
         if diagonal:
-            mask = self.qx == self.qy
+            mask = qx == qy
             data, frequencies = plasmon.load_big_file(index, diagonal=True)
         else:
-            mask = self.qx == mask_value
+            mask = qx == mask_value
             data, frequencies = plasmon.load_big_file(index, diagonal=False)
 
         plt.style.use('_mpl-gallery-nogrid')
@@ -76,7 +76,8 @@ def plot_plasmon(data,mask_value=50, diagonal = True, index = 0):
         #cax2 = ax1.scatter(x = self.qy[mask]/50, y = self.Omega[mask]*5001,c='k',marker='x',s=10)
         #cax2 = ax1.scatter(x = self.qy[mask]/50, y = (self.Omega[mask]+self.Gamma[mask]/2)*5001,c='k',marker='1',s=10)
         #cax2 = ax1.scatter(x = self.qy[mask]/50, y = (self.Omega[mask]-self.Gamma[mask]/2)*5001,c='k',marker='2',s=10)
-        #cax3 = ax1.errorbar(x = self.qy[mask]/50, y = self.Omega[mask]*5001, yerr = self.Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+        if plot_error:
+            cax3 = ax1.errorbar(x = qy[mask]/50, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
         cbar = fig.colorbar(cax)
         print("qx=",self.qx[1:10])
         plt.tight_layout()
