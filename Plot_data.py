@@ -27,7 +27,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_excel_data(arg):
+def plot_excel_data(qx,qy,Omega,Gamma,file_HP):
     for index_q in range(0,901,50):
         mask = qx == index_q
         print("mask=",mask)
