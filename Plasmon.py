@@ -25,7 +25,7 @@
 # Importación de los módulos
 # ---------------------------
 import Eliashberg
-
+import numpy as np
 # -------
 # Clases
 # -------
