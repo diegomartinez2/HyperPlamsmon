@@ -44,7 +44,7 @@ def plot_excel_data(qx,qy,Omega,Gamma,file_HP):
 
     exit()
 
-def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 0, plot_error = False):
+def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 0, plot_error = False, save_fig = False):
     print ("Leyendo datos")
 
     for index in range(0,51):
@@ -73,13 +73,14 @@ def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 
         ax1.set_yticklabels(["0","0.1","0.2","0.3","0.4","0.5"])
 
         print (mask)
-        #cax2 = ax1.scatter(x = self.qy[mask]/50, y = self.Omega[mask]*5001,c='k',marker='x',s=10)
-        #cax2 = ax1.scatter(x = self.qy[mask]/50, y = (self.Omega[mask]+self.Gamma[mask]/2)*5001,c='k',marker='1',s=10)
-        #cax2 = ax1.scatter(x = self.qy[mask]/50, y = (self.Omega[mask]-self.Gamma[mask]/2)*5001,c='k',marker='2',s=10)
+
         if plot_error:
             cax3 = ax1.errorbar(x = qy[mask]/50, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
         cbar = fig.colorbar(cax)
         print("qx=",self.qx[1:10])
         plt.tight_layout()
-        plt.savefig("Figura_e_{}".format(index))
-        #plt.show()
+        if save_fig:
+            plt.savefig("Figura_e_{}".format(index))
+        else:
+            plt.show()
+        pass
