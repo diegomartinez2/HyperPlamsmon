@@ -27,19 +27,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-    if plot_excel_data:
-        for index_q in range(0,901,50):
-            mask = qx == index_q
-            print("mask=",mask)
-            plt.errorbar(qy[mask], Omega[mask], yerr=Gamma[mask], fmt='o', capsize=5, ecolor='red', markerfacecolor='blue')
-            # Etiquetas
-            plt.xlabel('qx')
-            plt.ylabel('Omega')
-            plt.title('Fitting')
-            # Establecer el rango de los ejes
-            plt.xlim(0, 1400) # Rango para el eje x
-            plt.ylim(0, 0.5) # Rango para el eje y
-            plt.savefig("Figura_Slava_fitting_{0}_{1}".format(index_q,file_HP))
-            plt.show()
+def plot_excel_data(arg):
+    for index_q in range(0,901,50):
+        mask = qx == index_q
+        print("mask=",mask)
+        plt.errorbar(qy[mask], Omega[mask], yerr=Gamma[mask], fmt='o', capsize=5, ecolor='red', markerfacecolor='blue')
+        # Etiquetas
+        plt.xlabel('qx')
+        plt.ylabel('Omega')
+        plt.title('Fitting')
+        # Establecer el rango de los ejes
+        plt.xlim(0, 1400) # Rango para el eje x
+        plt.ylim(0, 0.5) # Rango para el eje y
+        plt.savefig("Figura_Slava_fitting_{0}_{1}".format(index_q,file_HP))
+        plt.show()
 
-        exit()
+    exit()
