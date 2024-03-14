@@ -105,7 +105,7 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
     #	vmin = 0.0 , vmax = 0.004,
     #	vmin = 0.0 , vmax = 0.2,
     	vmin = 0.0 , vmax = 0.1,
-    	cmap=plt.colormaps['jet'], origin='lower',
+    	cmap=plt.colormaps['gist_stern'], origin='lower', #plt.colormaps['jet']; plt.colormaps['gnuplot']
     	interpolation='gaussian', aspect='auto')
     ax1.set_ylabel(r'Frequency (eV)', fontsize=12)
     ax1.set_xlabel(r'$q_x$', fontsize=12)
@@ -129,20 +129,23 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
         if plot_error:
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="1DP_c3")
             mask = qx == mask_value
-            cax3 = ax1.errorbar(x = qy[mask]/50, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax3 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPI_c2")
             mask = qx == mask_value
-            cax2 = ax1.errorbar(x = qy[mask]/50, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax2 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPII_c2")
             mask = qx == mask_value
-            cax1 = ax1.errorbar(x = qy[mask]/50, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax1 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
 
 
     cbar = fig.colorbar(cax)
     #print("qx=",self.qx[1:10])
     plt.tight_layout()
     if save_fig:
-        plt.savefig("Figura_e_{}".format(index))
+        if diagonal:
+            plt.savefig("Figura_diagonal_{}".format(index))
+        else:
+            plt.savefig("Figura_diagonal_{}".format(index))
     else:
         plt.show()
     pass
