@@ -401,6 +401,13 @@ def f_2(mu_par,w,lambda_t,a2F):
 
 
 def main(args):
+    """
+    -----
+    Flags
+    -----
+    fix_frequencies: Set frequencies to a set range to compare the same outputs. If false it set the range to a optimized one.
+    plot_excel_data: Plots the data.
+    """
     fix_frequencies = False
     plot_excel_data = False
     if len(args)<2:
