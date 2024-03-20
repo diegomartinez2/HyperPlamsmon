@@ -47,19 +47,10 @@ def main(args):
     a2F_Total = a2F_1DP+a2F_HPI+a2F_HPII
     Lambda_Total = Lambda_1DP+Lambda_HPI+Lambda_HPII
     plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total)
-    #
-    # Lambda = Lambda_Total
-    # mask = Lambda > 0
-    # print(mask)
-    #
-    # Tc = Eliashberg.T_c(w[mask],0.1,Lambda[-1],a2F[mask])
-    # print("T_c=",Tc,"(K) con Lambda_total")
     # Lambda = Lambda_1DP+Lambda_HPI+Lambda_HPII
     Lambda = Lambda_Total
     a2F = a2F_Total[1:]
     mask = Lambda > 0
-    #print(mask)
-    #print(len(Lambda_1DP),len(Lambda),"lambda::a2F",len(a2F_1DP),len(a2F))
     Tc = Eliashberg.T_c(w[mask],0.1,Lambda[-1],a2F[mask])
     print("T_c=",Tc,"(K) sumando 1DP+HPI+HPII")
 
