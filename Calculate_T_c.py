@@ -40,10 +40,8 @@ def plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_H
     plt.show()
 
 def main(args):
-    #w_a, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total = np.loadtxt("a2F_grupo.txt", usecols=(0, 1, 2, 3, 4), unpack=True)
-    #w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total = np.loadtxt("Lambda_grupo.txt", usecols=(0, 1, 2, 3, 4), unpack=True)
-    # for i in range(len(w)):
-    #     print(w[i],(Lambda_1DP[i]+Lambda_HPI[i]+Lambda_HPII[i]), Lambda_Total[i],"::",(Lambda_1DP[i]+Lambda_HPI[i]+Lambda_HPII[i])-Lambda_Total[i])
+    """
+    """
     w_a, a2F_1DP, a2F_HPI, a2F_HPII = np.loadtxt("a2F_combinados.txt", usecols=(0, 1, 2, 3), unpack=True)
     w, Lambda_1DP, Lambda_HPI, Lambda_HPII = np.loadtxt("Lambda_combinados.txt", usecols=(0, 1, 2, 3), unpack=True)
     a2F_Total = a2F_1DP+a2F_HPI+a2F_HPII
