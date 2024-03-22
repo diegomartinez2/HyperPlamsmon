@@ -6,4 +6,9 @@ Code to calculate the superconductivity critical temperature for cuprates.
 "Plot_data.py" plots a visualization of the data: Original and the excel_file fitting.
 
 Requirements:
+numpy
+matplotlib
+scipy
+ase
+
 pip install --upgrade --user xlrd==1.2.0
