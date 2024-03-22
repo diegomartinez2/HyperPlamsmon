@@ -139,9 +139,6 @@ class Eliashberg(object):
         else:
             print("error, Omega<0")
             exit()
-        #     Lamb_q=0
-        #     self.indice_zeros += 1
-        #     print("Indice_zeros=",self.indice_zeros)
         return Lamb_q
 
     def read_Ne(self,filename="out_DOS.dat"):
