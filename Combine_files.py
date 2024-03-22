@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  Calculate_T_c.py
+#  Combine_files.py
 #
 #  Copyright 2024 Diego Martinez Gutierrez <diego.martinez@ehu.eus>
 #
