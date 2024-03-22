@@ -41,6 +41,7 @@ def plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_H
 
 def main(args):
     """
+    Calculates the critical superconductivity temperature using the Eliashberg function and the Lambda.
     """
     w_a, a2F_1DP, a2F_HPI, a2F_HPII = np.loadtxt("a2F_combinados.txt", usecols=(0, 1, 2, 3), unpack=True)
     w, Lambda_1DP, Lambda_HPI, Lambda_HPII = np.loadtxt("Lambda_combinados.txt", usecols=(0, 1, 2, 3), unpack=True)
