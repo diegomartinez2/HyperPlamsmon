@@ -118,7 +118,6 @@ def Excel_data(filename,flag_1DP = False):
     If the file is for the 1DP...
     """
     out = read_1_excel_file(filename=filename) #filenames=('1DP','HPI','HPII');filenames=('1DP_c','HPI_c','HPII'_c)
-    #qx,qy,Omega,Gamma,Ratio = Eliashberg.Excel_data_parser(out)
     qx=out[:,0]
     qy=out[:,1]
     Omega=out[:,2]
