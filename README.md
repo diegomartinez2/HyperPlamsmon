@@ -11,5 +11,6 @@ matplotlib
 scipy
 ase
 os
+glob
 
 pip install --upgrade --user xlrd==1.2.0
