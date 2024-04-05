@@ -10,5 +10,6 @@ numpy
 matplotlib
 scipy
 ase
+os
 
 pip install --upgrade --user xlrd==1.2.0
