@@ -67,7 +67,7 @@ class Eliashberg(object):
         self.qx = qx
         self.qy = qy
         self.Omega = Omega
-        self.Gamma =  Gamma
+        self.Gamma =  Gamma     #los datos proporcionados son del full widths
         self.Ratio = Ratio
 
         self.indice_zeros = 0
