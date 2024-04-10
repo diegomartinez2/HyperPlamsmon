@@ -144,15 +144,15 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
 
     cbar = fig.colorbar(cax)
     #print("qx=",self.qx[1:10])
-    plt.tight_layout()
+    #plt.tight_layout()
     if diagonal:
             plt.title("$q_x=q_y$")
     else:
             if index==0:
                  plt.title("$q_y=0$")
             else:
-                 plt.title("$q_y=$",index*np.pi/50)
-
+                 plt.title("$q_y=$"+str(index/50)+"*$\pi$")
+    plt.tight_layout()
     if save_fig:
         if diagonal:
             plt.savefig("Figura_diagonal_{}".format(index))
