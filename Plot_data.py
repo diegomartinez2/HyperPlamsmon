@@ -69,7 +69,7 @@ def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 
         	cmap=plt.colormaps['jet'], origin='lower',
         	interpolation='gaussian', aspect='auto')
         ax1.set_ylabel(r'Frequency (eV)', fontsize=12)
-        ax1.tick_params(axis='both',direction='inout')
+        ax1.tick_params(axis='both',direction='inout', length=8)
         ax1.set_xticks([0,10,20,25,30,40,50])
         ax1.set_yticks([0,500,1000,1500,2000,2500])
         #ax1.set_xticklabels(["0",5*np.pi/50,10*np.pi/50,15*np.pi/50,20*np.pi/50,"$\frac{\pi}{2}$","$\pi$"])
