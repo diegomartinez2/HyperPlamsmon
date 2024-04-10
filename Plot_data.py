@@ -111,6 +111,7 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
     ax1.set_ylabel(r'Frequency (eV)', fontsize=12)
     ax1.set_xlabel(r'$q_x$', fontsize=12)
     #ax1.set_xticks([0,25,50])
+    ax1.tick_params(axis='both',direction='inout')
     ax1.set_yticks([0,500,1000,1500,2000,2500])
     #ax1.set_xticklabels(["0","\frac{\pi}{2}","$\pi$"])
     ax1.set_xticks([0,10,20,25,30,40,50])
