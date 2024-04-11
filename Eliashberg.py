@@ -353,7 +353,7 @@ def T_c(w,mu_par,lambda_t,a2F):
         else:
             out=w_log(w,lambda_t,a2F)/1.2 * np.exp(out2)
 
-        return out/8.617333262e-5 #Boltzman constant in eV/K
+        #return out/8.617333262e-5 #Boltzman constant in eV/K
         return out*11604 #from eV to Kelvin
 
 def w_log(w,lambda_t,a2F):
