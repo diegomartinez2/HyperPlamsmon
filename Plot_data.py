@@ -72,9 +72,11 @@ def plot_plasmon(qx,qy,Omega,Gamma,data,mask_value=50, diagonal = True, index = 
         ax1.tick_params(axis='both',direction='inout', length=8)
         ax1.set_xticks([0,10,20,25,30,40,50])
         ax1.set_yticks([0,500,1000,1500,2000,2500])
-        #ax1.set_xticklabels(["0",5*np.pi/50,10*np.pi/50,15*np.pi/50,20*np.pi/50,"$\frac{\pi}{2}$","$\pi$"])
-        ax1.set_yticklabels(["0","0.1","0.2","0.3","0.4","0.5"])
+#        ax1.set_xticklabels(["0",5*np.pi/50,10*np.pi/50,15*np.pi/50,20*np.pi/50,np.pi/2,"$\pi$"])
         ax1.set_xticklabels(["0","$\pi/5$","$2\pi/5$","$\pi/2$","$3\pi/5$","$4\pi/5$","$\pi$"])
+        ax1.set_yticklabels(["0","0.1","0.2","0.3","0.4","0.5"])
+        if diagonal:
+               ax1.title("$q_x=q_y")
         print (mask)
 
         if plot_error:

@@ -260,6 +260,7 @@ class Eliashberg(object):
             #(np.divide(self.a2F(self.w), self.w)*np.log(self.w)),self.w))
             np.trapz((np.divide(self.a2F(w), w)*np.log(w)),w)
             )
+        #print("w_log=",w_log)
         return w_log
 
     def w_2(self,lambda_t):
