@@ -12,5 +12,5 @@ scipy
 ase
 os
 glob
-
-pip install --upgrade --user xlrd==1.2.0
+xlrd==1.2.0
+**pip install --upgrade --user xlrd==1.2.0**
