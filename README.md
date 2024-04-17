@@ -13,4 +13,4 @@ ase
 os
 glob
 xlrd==1.2.0
-**pip install --upgrade --user xlrd==1.2.0**
+You can install it with **pip install --upgrade --user xlrd==1.2.0**
