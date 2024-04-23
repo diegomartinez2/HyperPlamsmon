@@ -127,10 +127,10 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
             cax3 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPI_c2")
             mask = qx == qy
-            cax2 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax2 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 's') #¿y*5001? para la escala
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPII_c2")
             mask = qx == qy
-            cax1 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax1 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'v') #¿y*5001? para la escala
     else:
         if plot_error:
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="1DP_c3")
@@ -138,10 +138,10 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
             cax3 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala; -1 because the array in python begin in '0' and the original data do not have data in qx=0
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPI_c2")
             mask = qx == mask_value
-            cax2 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax2 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 's') #¿y*5001? para la escala
             qx,qy,Omega,Gamma,Ratio = Excel_read.Excel_data(filename="HPII_c2")
             mask = qx == mask_value
-            cax1 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'o') #¿y*5001? para la escala
+            cax1 = ax1.errorbar(x = qy[mask]/50 -1, y = Omega[mask]*5001, yerr = Gamma[mask]*5001/2, fmt = 'v') #¿y*5001? para la escala
 
 
     cbar = fig.colorbar(cax)
