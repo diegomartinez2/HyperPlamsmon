@@ -43,8 +43,8 @@ def plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_H
     plt.show()
 
 def plotter2(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total):
-    plt.plot(w, (a2F_1DP[1:]+a2F_HPI[1:]+a2F_HPII[1:]), label="Summa a2F")
-    plt.plot(w, a2F_Total[1:], label="a2F Total")
+    plt.plot(w, (a2F_1DP[1:]+a2F_HPI[1:]+a2F_HPII[1:]), label="Summa $\\alpha 2F$")
+    plt.plot(w, a2F_Total[1:], label="$\\alpha 2F$ Total")
     plt.title('$\alpha$2F vs. $\omega$')
     plt.xlabel('$\omega$')
     plt.ylabel('$\alpha 2F(\omega)$')
