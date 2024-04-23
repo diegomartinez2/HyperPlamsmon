@@ -55,6 +55,7 @@ def main(args):
     Lambda_Total = Lambda_1DP+Lambda_HPI+Lambda_HPII
     plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total)
     # Lambda = Lambda_1DP+Lambda_HPI+Lambda_HPII
+    plotter2(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total)
     Lambda = Lambda_Total
     a2F = a2F_Total[1:]
     mask = Lambda > 0
