@@ -34,8 +34,14 @@ import matplotlib.pyplot as plt
 # ----------
 
 def plotter(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total):
-    plt.plot(w, (Lambda_1DP+Lambda_HPI+Lambda_HPII), label="Summa")
-    plt.plot(w, Lambda_Total, label="Total")
+    plt.plot(w, (Lambda_1DP+Lambda_HPI+Lambda_HPII), label="Summa lambdas")
+    plt.plot(w, Lambda_Total, label="Lambda Total")
+    plt.legend()
+    plt.show()
+
+def plotter2(w, Lambda_1DP, Lambda_HPI, Lambda_HPII, Lambda_Total, a2F_1DP, a2F_HPI, a2F_HPII, a2F_Total):
+    plt.plot(w, (a2F_1DP+a2F_HPI+a2F_HPII), label="Summa a2F")
+    plt.plot(w, a2F_Total, label="a2F Total")
     plt.legend()
     plt.show()
 
