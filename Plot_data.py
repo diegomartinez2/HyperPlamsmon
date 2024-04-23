@@ -164,6 +164,7 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
             plt.savefig("Figura_q_{}".format(index))
     else:
         plt.show()
+        matplotlib.pyplot.close()
     pass
 
 plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_fig = False)
