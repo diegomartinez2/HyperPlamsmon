@@ -168,4 +168,26 @@ def plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_
     pass
 
 plot_all(mask_value=50, diagonal = True, index = 1, plot_error = True, save_fig = False)
+#lets plot 20 figures
+plot_all(mask_value=50, diagonal = False, index = 1, plot_error = True, save_fig = True)
+plot_all(mask_value=100, diagonal = False, index = 2, plot_error = True, save_fig = True)
+plot_all(mask_value=150, diagonal = False, index = 3, plot_error = True, save_fig = True)
+plot_all(mask_value=200, diagonal = False, index = 4, plot_error = True, save_fig = True)
+plot_all(mask_value=250, diagonal = False, index = 5, plot_error = True, save_fig = True)
+plot_all(mask_value=300, diagonal = False, index = 6, plot_error = True, save_fig = True)
+plot_all(mask_value=350, diagonal = False, index = 7, plot_error = True, save_fig = True)
+plot_all(mask_value=400, diagonal = False, index = 8, plot_error = True, save_fig = True)
+plot_all(mask_value=450, diagonal = False, index = 9, plot_error = True, save_fig = True)
+plot_all(mask_value=500, diagonal = False, index = 10, plot_error = True, save_fig = True)
+plot_all(mask_value=550, diagonal = False, index = 11, plot_error = True, save_fig = True)
+plot_all(mask_value=600, diagonal = False, index = 12, plot_error = True, save_fig = True)
+plot_all(mask_value=650, diagonal = False, index = 13, plot_error = True, save_fig = True)
+plot_all(mask_value=700, diagonal = False, index = 14, plot_error = True, save_fig = True)
+plot_all(mask_value=750, diagonal = False, index = 15, plot_error = True, save_fig = True)
+plot_all(mask_value=800, diagonal = False, index = 16, plot_error = True, save_fig = True)
+plot_all(mask_value=850, diagonal = False, index = 17, plot_error = True, save_fig = True)
+plot_all(mask_value=900, diagonal = False, index = 18, plot_error = True, save_fig = True)
+plot_all(mask_value=950, diagonal = False, index = 19, plot_error = True, save_fig = True)
+plot_all(mask_value=1000, diagonal = False, index = 20, plot_error = True, save_fig = True)
+
 pass
